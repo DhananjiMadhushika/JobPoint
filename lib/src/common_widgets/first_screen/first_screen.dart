@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jobapp/src/common_widgets/welcom_screen/welcom_screen.dart';
+import 'package:jobapp/src/common_widgets/first_screen/navigate1.dart';
 
 class FirstWindow extends StatelessWidget {
   const FirstWindow({super.key});
@@ -21,10 +21,8 @@ class FirstWindow extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const WelcomeWindow()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Nevg1()));
               },
               child: Container(
                 height: 50,

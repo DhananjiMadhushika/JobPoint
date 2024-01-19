@@ -1,40 +1,51 @@
+import 'dart:typed_data';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class EmployeeModel {
   final String? id;
   final String? fullName;
   final String? email;
+  final String? telNo;
   final String? profession;
-  final String? birthof_date;
   final String? about;
+  final Uint8List? profilePic; // Make sure to use nullable Uint8List
 
   const EmployeeModel({
     this.id,
     required this.fullName,
     required this.email,
+    required this.telNo,
     required this.profession,
-    required this.birthof_date,
-    required this.about,
+    this.about,
+    this.profilePic,
   });
 
-  // when storing the data
-
+  // When storing the data
   Map<String, dynamic> toJSON() {
     return {
       "fullName": fullName,
       "email": email,
+      "telNo": telNo,
       "profession": profession,
-      "birthof_date": birthof_date,
       "about": about,
+      "profilePic": profilePic, // Include the profilePic in the JSON
     };
   }
 
-  // this method convert the json object to user data
-  factory EmployeeModel.fromJSON(Map<String, dynamic> json) {
+  // This method converts the JSON object to user data
+  factory EmployeeModel.fromSnapshot(
+    DocumentSnapshot<Map<String, dynamic>> document,
+  ) {
+    final data = document.data();
     return EmployeeModel(
-        id: json['id'],
-        fullName: json['fullname'],
-        email: json['email'],
-        profession: json['profession'],
-        birthof_date: json['birthof_date'],
-        about: json['about']);
+      id: document.id,
+      fullName: data?["fullname"],
+      email: data?["email"],
+      telNo: data?["telNo"],
+      profession: data?["profession"],
+      about: data?["about"],
+      profilePic: data?["profilePic"], // Get the profilePic from the data
+    );
   }
 }

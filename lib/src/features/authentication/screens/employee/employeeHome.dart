@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jobapp/src/features/authentication/screens/employee/employee_add_details.dart';
+import 'package:get/get.dart';
+import 'package:jobapp/src/common_widgets/welcom_screen/welcom_screen.dart';
 import 'package:jobapp/src/features/authentication/screens/employee/myAccount.dart';
+import 'package:jobapp/src/repository/authentication_repository/authentication_repositort.dart';
 
 class EmployeeHome extends StatefulWidget {
   const EmployeeHome({super.key});
@@ -10,41 +12,53 @@ class EmployeeHome extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<EmployeeHome> {
-  final List<Widget> _pages = [
-    // Your home page widget,
-    // Your favorite page widget,
-    // Your notification page widget (CreateProfile in this case),
-  ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 75,
+          toolbarHeight: 100,
           centerTitle: true,
-          title: Container(
-            child: RichText(
-              textAlign: TextAlign.left,
-              text: const TextSpan(
-                children: [
-                  TextSpan(
-                    text: 'Job',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 27,
-                      fontWeight: FontWeight.bold,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                child: Column(
+                  children: [
+                    RichText(
+                      textAlign: TextAlign.left,
+                      text: const TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Job',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 27,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          TextSpan(
+                            text: 'Point',
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 27,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  TextSpan(
-                    text: 'Point',
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 27,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
+              SizedBox(width: 110),
+              Container(
+                width: 80,
+                height: 100,
+                child: Image.asset(
+                    'assets/images/back_girl.png'), // Replace 'your_image_path.png' with the actual path to your image asset
+              ),
+            ],
           ),
           backgroundColor: Color.fromARGB(255, 199, 198, 201),
         ),
@@ -69,39 +83,17 @@ class _MyWidgetState extends State<EmployeeHome> {
                 ),
                 currentAccountPicture: FlutterLogo(),
               ),
-              const ListTile(
-                leading: Icon(
-                  Icons.home,
-                ),
-                title: Text('Page 1'),
-              ),
               ListTile(
                 leading: const Icon(
-                  Icons.train,
+                  Icons.logout,
                 ),
-                title: const Text('Page 2'),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => CreatProfile()),
-                  );
+                title: const Text('Logout'),
+                onTap: () async {
+                  // Handle the logout action
+                  await AuthenticationRepository.instance.logout();
+                  // Navigate to the login screen after logout
+                  Get.offAll(() => const WelcomeWindow());
                 },
-              ),
-              const AboutListTile(
-                // <-- SEE HERE
-                icon: Icon(
-                  Icons.info,
-                ),
-                child: Text('About app'),
-                applicationIcon: Icon(
-                  Icons.local_play,
-                ),
-                applicationName: 'My Cool App',
-                applicationVersion: '1.0.25',
-                applicationLegalese: '© 2019 Company',
-                aboutBoxChildren: [
-                  ///Content goes here...
-                ],
               ),
             ],
           ),
@@ -113,7 +105,7 @@ class _MyWidgetState extends State<EmployeeHome> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.notification_add), label: ''),
           ],
-          onTap: (int index) {
+          onTap: (int index) async {
             // Add your navigation actions based on the index
             switch (index) {
               case 0:
@@ -125,9 +117,6 @@ class _MyWidgetState extends State<EmployeeHome> {
                 // Example: Navigator.pushReplacementNamed(context, '/favorite');
                 break;
               case 2:
-                // Navigate to the notifications screen
-                // Example: Navigator.pushReplacementNamed(context, '/notifications');
-                break;
             }
           },
         ),

@@ -1,10 +1,6 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:jobapp/src/features/authentication/models/employeeModel.dart';
 
 class EmployeeRepository extends GetxController {
@@ -35,17 +31,27 @@ class EmployeeRepository extends GetxController {
       );
     }
   }
-}
 
-// Upload Images
+  // fetch  all user or user details
 
-Future<String?> uploadImage(String path, XFile image) async {
-  try {
-    final ref = FirebaseStorage.instance.ref(path).child(image.name);
-    await ref.putFile(File(image.path));
-    final url = await ref.getDownloadURL();
-    return url;
-  } on FirebaseException catch (e) {
-    print(e);
+  Future<EmployeeModel> getUserDetails(String email) async {
+    final snapshot =
+        await _db.collection("employee").where("email", isEqualTo: email).get();
+    final userData =
+        snapshot.docs.map((e) => EmployeeModel.fromSnapshot(e)).single;
+    return userData;
+  }
+
+  Future<List<EmployeeModel>> allUser(String email) async {
+    final snapshot = await _db.collection("employee").get();
+    final userData =
+        snapshot.docs.map((e) => EmployeeModel.fromSnapshot(e)).toList();
+    return userData;
+  }
+
+  // Update employee
+
+  Future<void> updateEmployee(EmployeeModel employee) async {
+    await _db.collection("employee").doc(employee.id).update(employee.toJSON());
   }
 }

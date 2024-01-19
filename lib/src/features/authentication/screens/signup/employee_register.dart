@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jobapp/src/features/authentication/controller/signup_controller.dart';
+import 'package:jobapp/src/features/authentication/models/employeeModel.dart';
 import 'package:jobapp/src/features/authentication/screens/login/employee_login.dart';
 
 class EmployeeRegister extends StatefulWidget {
@@ -224,33 +225,54 @@ class _MyWidgetState extends State<EmployeeRegister> {
                           const Opacity(
                             opacity:
                                 0.8, // Adjust the opacity value as needed (0.0 - 1.0)
-                            child: Icon(Icons.key_rounded),
+                            child: Icon(Icons.phone),
                           ),
                           const SizedBox(width: 8),
                           Expanded(
                             child: TextField(
+                              controller: controller.telNo,
                               obscureText: _isObscure,
                               decoration: const InputDecoration(
-                                hintText: 'Confirm Password',
+                                hintText: 'Telphone No',
                                 border: InputBorder.none,
                               ),
                             ),
                           ),
-                          Opacity(
-                            opacity: 0.8,
-                            child: IconButton(
-                              icon: Icon(_isObscure
-                                  ? Icons.visibility
-                                  : Icons.visibility_off),
-                              onPressed: () {
-                                setState(() {
-                                  _isObscure = !_isObscure;
-                                });
-                              },
-                            ),
-                          ),
                         ],
                       ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 60,
+                    width: 320,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black12, width: 2.0),
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const SizedBox(width: 8),
+                        const Opacity(
+                          opacity:
+                              0.8, // Adjust the opacity value as needed (0.0 - 1.0)
+                          child: Icon(Icons.email),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: TextField(
+                            controller: controller.profession,
+                            decoration: InputDecoration(
+                              hintText: 'Proffession',
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -265,6 +287,16 @@ class _MyWidgetState extends State<EmployeeRegister> {
                           controller.email.text.trim(),
                           controller.password.text.trim(),
                         );
+
+                        // If user registration is successful, create employee in Firestore
+                        final employee = EmployeeModel(
+                          fullName: controller.fullname.text.trim(),
+                          email: controller.email.text.trim(),
+                          telNo: controller.telNo.text.trim(),
+                          profession: controller.profession.text.trim(),
+                        );
+
+                        SignUpController.instance.createEmployee(employee);
                       }
                     },
                     style: ElevatedButton.styleFrom(

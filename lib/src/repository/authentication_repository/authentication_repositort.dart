@@ -1,29 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
-import 'package:jobapp/src/common_widgets/welcom_screen/welcom_screen.dart';
-import 'package:jobapp/src/features/authentication/screens/login/employee_login.dart';
+import 'package:jobapp/src/features/authentication/screens/employee/employeeHome.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
 
-  //variables
   final _auth = FirebaseAuth.instance;
-  // ignore: deprecated_member_use
-
-  late final Rx<User?> firebaseUser; // Rx --- provided the string or get
+  final _storage = FirebaseStorage.instance;
+  late final Rx<User?> firebaseUser;
+  late final RxBool isLoggedIn = RxBool(false);
 
   @override
   void onReady() {
-    // ready function
     firebaseUser = Rx<User?>(_auth.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
-    ever(firebaseUser, _setInitialScreen);
-  }
-
-  _setInitialScreen(User? user) {
-    user == null
-        ? Get.offAll(() => const WelcomeWindow())
-        : Get.to(() => const UserLogin());
   }
 
   Future<void> createUserWithEmailAndPassword(
@@ -31,44 +22,30 @@ class AuthenticationRepository extends GetxController {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      firebaseUser.value != null
-          ? Get.offAll(() => const WelcomeWindow())
-          : Get.to(() => const UserLogin());
-    } on FirebaseAuthException catch (e) {}
+      isLoggedIn.value = true;
+      Get.offAll(() => EmployeeHome());
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      // Handle the exception (e.g., show an error message)
+    }
   }
 
   Future<void> loginWithEmailAndPassword(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-
-      // Wait for the user to be updated before navigating
       await _auth.authStateChanges().firstWhere((user) => user != null);
-      Get.offAll(() => const WelcomeWindow());
-
-      // Navigate to EmployeeHome after a successful login
+      isLoggedIn.value = true;
     } on FirebaseAuthException catch (e) {
       print(e);
     } catch (_) {}
   }
 
-  // Future<UserCredential> signInWithGoogle() async {
-  //   // Trigger the authentication flow
-  //   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-  //   // Obtain the auth details from the request
-  //   final GoogleSignInAuthentication? googleAuth =
-  //       await googleUser?.authentication;
-
-  //   // Create a new credential
-  //   final credential = GoogleAuthProvider.credential(
-  //     accessToken: googleAuth?.accessToken,
-  //     idToken: googleAuth?.idToken,
-  //   );
-
-  //   // Once signed in, return the UserCredential
-  //   return await FirebaseAuth.instance.signInWithCredential(credential);
-  // }
-  //Add employee
-
-  Future<void> logout() async => await _auth.signOut();
+  Future<void> logout() async {
+    try {
+      await _auth.signOut();
+      print("Logged out successfully.");
+    } catch (e) {
+      print("Error during logout: $e");
+    }
+  }
 }

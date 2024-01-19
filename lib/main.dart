@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SafeArea(
       child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
         home: FirstWindow(),
       ),
     );
