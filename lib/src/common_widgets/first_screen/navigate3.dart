@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jobpoint/screens/FirstWindows/welcomwindow.dart';
+import 'package:jobapp/src/common_widgets/welcom_screen/welcom_screen.dart';
 
 class Nevg3 extends StatelessWidget {
   const Nevg3({super.key});

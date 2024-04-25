@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jobpoint/screens/Company/company_home.dart';
-import 'package:jobpoint/screens/Company/company_reg.dart';
+import 'package:jobapp/src/features/authentication/screens/company/companyHome.dart';
+import 'package:jobapp/src/features/authentication/screens/company/company_reg.dart';
 
 void main() {
   runApp(const CompanyLogin());
@@ -186,7 +186,7 @@ class _CompanyLoginState extends State<CompanyLogin> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CompanyHome()));
+                                builder: (context) => CompanyDetails()));
                       },
                       child: Container(
                         height: 60,

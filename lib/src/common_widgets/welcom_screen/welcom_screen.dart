@@ -71,7 +71,8 @@ class WelcomeWindow extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const CompanyHome()),
+                  MaterialPageRoute(
+                      builder: (context) => const CompanyDetails()),
                 );
               },
               child: Container(

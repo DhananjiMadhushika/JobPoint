@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jobpoint/screens/Company/company_login.dart';
+import 'package:jobapp/src/features/authentication/screens/company/company_login.dart';
 
 class CompanyRegistration extends StatefulWidget {
   const CompanyRegistration({Key? key}) : super(key: key);

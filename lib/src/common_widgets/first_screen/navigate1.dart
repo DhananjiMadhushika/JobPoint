@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jobpoint/screens/FirstWindows/navigation2.dart';
+import 'package:jobapp/src/common_widgets/first_screen/navigate2.dart';
 
 class Nevg1 extends StatelessWidget {
   const Nevg1({super.key});
