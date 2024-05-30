@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jobapp/src/features/authentication/controller/signup_controller.dart';
-import 'package:jobapp/src/features/authentication/models/employeeModel.dart';
-import 'package:jobapp/src/features/authentication/screens/login/employee_login.dart';
+import 'package:jobpoint/src/features/authentication/controller/signup_controller.dart';
+import 'package:jobpoint/src/features/authentication/models/employeeModel.dart';
+import 'package:jobpoint/src/features/authentication/screens/login/user_login.dart';
 
-class EmployeeRegister extends StatefulWidget {
-  const EmployeeRegister({super.key});
+class UserRegister extends StatefulWidget {
+  const UserRegister({super.key});
 
   @override
-  State<EmployeeRegister> createState() => _MyWidgetState();
+  State<UserRegister> createState() => _MyWidgetState();
 }
 
-class _MyWidgetState extends State<EmployeeRegister> {
+class _MyWidgetState extends State<UserRegister> {
   bool _isObscure = true; // Flag to toggle password visibility
   @override
   Widget build(BuildContext context) {

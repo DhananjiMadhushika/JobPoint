@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:get/get.dart';
-import 'package:jobapp/src/features/authentication/models/companyModel.dart';
-import 'package:jobapp/src/features/authentication/models/employeeModel.dart';
-import 'package:jobapp/src/repository/authentication_repository/authentication_repositort.dart';
-import 'package:jobapp/src/repository/employee_repository/companyRepository.dart';
-import 'package:jobapp/src/repository/employee_repository/employee_repository.dart';
+import 'package:jobpoint/src/features/authentication/models/companyModel.dart';
+import 'package:jobpoint/src/features/authentication/models/employeeModel.dart';
+import 'package:jobpoint/src/repository/authentication_repository/authentication_repositort.dart';
+import 'package:jobpoint/src/repository/employee_repository/companyRepository.dart';
+import 'package:jobpoint/src/repository/employee_repository/employee_repository.dart';
 
 class SignUpController extends GetxController {
   static SignUpController get instance => Get.find();
@@ -18,7 +18,10 @@ class SignUpController extends GetxController {
   final profession = TextEditingController();
   final about = TextEditingController();
 
-  final companyName = TextEditingController();
+  final RxList<AppliedJob> appliedJobs = <AppliedJob>[].obs;
+
+
+
   final employeeRepo = Get.put(EmployeeRepository());
   final companyRepo = Get.put(CompanyRepository());
 

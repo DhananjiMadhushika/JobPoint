@@ -1,26 +1,51 @@
 {
   "project_info": {
-    "project_number": "444590398241",
-    "project_id": "mobile-application-proje-7c33f",
-    "storage_bucket": "mobile-application-proje-7c33f.appspot.com"
+    "project_number": "85310041975",
+    "project_id": "jobpoint-mobile-app-28123",
+    "storage_bucket": "jobpoint-mobile-app-28123.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:444590398241:android:f16f530a04e9485751bc60",
+        "mobilesdk_app_id": "1:85310041975:android:9dde06f653b1fefbbc3b72",
         "android_client_info": {
-          "package_name": "com.example.jobapp"
+          "package_name": "com.example.jobpoint"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "85310041975-t1o5ojajl9mde0hi5u1sgshbk1ti9mt5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jobpoint",
+            "certificate_hash": "d51acd875d189d3fb99033989dd6c4bda1e48153"
+          }
+        },
+        {
+          "client_id": "85310041975-kktb034dmsifm3knestii20fu314sksr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyDA0e0G4dK6wmBkiiXFlnDU45kQYel0ZPc"
+          "current_key": "AIzaSyDz-7vycw-JHO0_c-YAMCOByyFKfbBd1cU"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "85310041975-kktb034dmsifm3knestii20fu314sksr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "85310041975-hmo7lutkvjfkb70mapamneli3jj4iihc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.jobpoint"
+              }
+            }
+          ]
         }
       }
     }

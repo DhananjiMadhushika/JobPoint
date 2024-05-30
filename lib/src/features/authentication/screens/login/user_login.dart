@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jobapp/src/features/authentication/controller/login_controller.dart';
-import 'package:jobapp/src/features/authentication/screens/signup/employee_register.dart';
+import 'package:jobpoint/src/features/authentication/controller/login_controller.dart';
+import 'package:jobpoint/src/features/authentication/screens/signup/user_register.dart';
+
+import '../employee/employeeHome.dart';
 
 class UserLogin extends StatefulWidget {
-  const UserLogin({super.key});
+  const UserLogin({Key? key}) : super(key: key);
 
   @override
-  State<UserLogin> createState() => _MyWidgetState();
+  State<UserLogin> createState() => _UserLoginState();
 }
 
-class _MyWidgetState extends State<UserLogin> {
+class _UserLoginState extends State<UserLogin> {
   bool _obscurePassword = true;
-// Added for Confirm Password
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(LoginController());
@@ -25,20 +27,18 @@ class _MyWidgetState extends State<UserLogin> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Align(
-                    child: Align(
-                      alignment: Alignment.centerLeft,
+                    alignment: Alignment.centerLeft,
+                    child: GestureDetector(
+                      onTap: () {
+                        // Navigate to the previous page when the arrow icon is clicked
+                        Navigator.of(context).pop();
+                      },
                       child: Container(
                         height: 50,
                         width: 250,
-                        child: GestureDetector(
-                          onTap: () {
-                            // Navigate to the previous page when the arrow icon is clicked
-                            Navigator.of(context).pop();
-                          },
-                          child: const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Icon(Icons.arrow_back_outlined),
-                          ),
+                        child: const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Icon(Icons.arrow_back_outlined),
                         ),
                       ),
                     ),
@@ -63,9 +63,10 @@ class _MyWidgetState extends State<UserLogin> {
                           TextSpan(
                             text: 'Point',
                             style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 27,
-                                fontWeight: FontWeight.bold),
+                              color: Colors.blue,
+                              fontSize: 27,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ],
                       ),
@@ -78,8 +79,7 @@ class _MyWidgetState extends State<UserLogin> {
                     alignment: Alignment.topLeft,
                     child: const Text(
                       "Welcome Back",
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -87,16 +87,17 @@ class _MyWidgetState extends State<UserLogin> {
                   padding: const EdgeInsets.only(left: 30, top: 10),
                   child: Container(
                     alignment: Alignment.topLeft,
-                    child: const Text("Let's Login, Apply to jobs",
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Color(0xFFAFB0B6),
-                        )),
+                    child: const Text(
+                      "Let's Login, Apply to jobs",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Color(0xFFAFB0B6),
+                      ),
+                    ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                      bottom: 10, left: 20, right: 20, top: 30),
+                  padding: const EdgeInsets.only(bottom: 10, left: 20, right: 20, top: 30),
                   child: Container(
                     height: 60,
                     width: 330,
@@ -109,17 +110,20 @@ class _MyWidgetState extends State<UserLogin> {
                         ),
                         labelText: 'Email',
                         labelStyle: const TextStyle(
-                            color: Color.fromARGB(255, 106, 107, 110)),
+                          color: Color.fromARGB(255, 106, 107, 110),
+                        ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
-                              color: Color.fromARGB(255, 106, 107, 110),
-                              width: 2.0),
+                            color: Color.fromARGB(255, 106, 107, 110),
+                            width: 2.0,
+                          ),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
-                              color: Color.fromARGB(255, 106, 107, 110),
-                              width: 2.0),
+                            color: Color.fromARGB(255, 106, 107, 110),
+                            width: 2.0,
+                          ),
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
@@ -127,15 +131,13 @@ class _MyWidgetState extends State<UserLogin> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                      bottom: 10, left: 20, right: 20, top: 10),
+                  padding: const EdgeInsets.only(bottom: 10, left: 20, right: 20, top: 10),
                   child: Container(
                     height: 60,
                     width: 330,
                     child: TextField(
                       controller: controller.password,
-                      obscureText:
-                          _obscurePassword, // This hides the password by default
+                      obscureText: _obscurePassword,
                       decoration: InputDecoration(
                         prefixIcon: const Icon(
                           Icons.lock,
@@ -177,15 +179,16 @@ class _MyWidgetState extends State<UserLogin> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                      bottom: 10, left: 20, right: 20, top: 10),
+                  padding: const EdgeInsets.only(bottom: 10, left: 20, right: 20, top: 10),
                   child: ElevatedButton(
                     onPressed: () {
                       // Register user using Firebase Authentication
-                      LoginController.instance.login(
+                      controller.login(
                         controller.email.text.trim(),
                         controller.password.text.trim(),
                       );
+
+
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -205,47 +208,58 @@ class _MyWidgetState extends State<UserLogin> {
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.only(bottom: 10, left: 115, top: 10),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        height: 38,
-                        width: 38,
-                        child: Image.asset("assets/login/googles.png",
-                            fit: BoxFit.cover),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "Signup with google",
-                          style: TextStyle(fontSize: 15),
+                  padding: const EdgeInsets.only(bottom: 10, left: 115, top: 10),
+                  child: GestureDetector(
+                    onTap: () {
+                      // Call the Google Sign-In method
+                      controller.googleSignIn();
+                    },
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          height: 38,
+                          width: 38,
+                          child: Image.asset(
+                            "assets/login/googles.png",
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      )
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Sign in with Google",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 Padding(
-                    padding:
-                        const EdgeInsets.only(bottom: 10, left: 25, top: 30),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const EmployeeRegister()));
-                      },
-                      child: RichText(
-                          text: const TextSpan(children: [
+                  padding: const EdgeInsets.only(bottom: 10, left: 25, top: 30),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const UserRegister(),
+                        ),
+                      );
+                    },
+                    child: RichText(
+                      text: const TextSpan(children: [
                         TextSpan(
-                            text: "Haven't an account?",
-                            style: TextStyle(color: Colors.black87)),
+                          text: "Haven't an account?",
+                          style: TextStyle(color: Colors.black87),
+                        ),
                         TextSpan(
-                            text: 'Register',
-                            style: TextStyle(color: Colors.blue))
-                      ])),
-                    ))
+                          text: 'Register',
+                          style: TextStyle(color: Colors.blue),
+                        ),
+                      ]),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

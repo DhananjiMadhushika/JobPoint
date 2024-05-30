@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import '../../models/companyModel.dart';
+import '../employee/apply.dart';
 
-
-class CompanyDetails extends StatefulWidget {
-  const CompanyDetails({Key? key}) : super(key: key);
+class ViewJobs extends StatefulWidget {
+  const ViewJobs({Key? key}) : super(key: key);
 
   @override
-  State<CompanyDetails> createState() => _CompanyDetailsState();
+  State<ViewJobs> createState() => _CompanyDetailsState();
 }
 
-class _CompanyDetailsState extends State<CompanyDetails> {
+class _CompanyDetailsState extends State<ViewJobs> {
   @override
   Widget build(BuildContext context) {
     final CompanyModel? company = Get.arguments as CompanyModel?;
@@ -239,68 +237,23 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: 70,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 20, bottom: 10),
                 child: Container(
-                  alignment: Alignment.center,
-                  child: const Text(
-                    "Applications",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blueGrey,
-                      fontWeight: FontWeight.bold,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.to(ApplyJob(),
+                          arguments: company);
+
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.blue, // Button color
                     ),
+                    child: const Text('Apply'),
                   ),
                 ),
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: company.applications.length,
-                itemBuilder: (context, index) {
-                  final application = company.applications[index];
-                  return Card(
-                    margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Applicant Name: ${application.applicantName}',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            'Position: ${application.position}',
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                          SizedBox(height: 5),
-
-                          SizedBox(height: 5),
-                          ElevatedButton(
-                            onPressed: () async {
-                              final url = application.resumeUrl;
-                              if (await canLaunch(url)) {
-                                await launch(url);
-                              } else {
-                                throw 'Could not launch $url';
-                              }
-                            },
-                            child: Text('Download Resume'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
               ),
             ],
           ),

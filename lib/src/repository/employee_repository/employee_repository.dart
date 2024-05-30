@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jobapp/src/features/authentication/models/employeeModel.dart';
+import 'package:jobpoint/src/features/authentication/models/employeeModel.dart';
 
 class EmployeeRepository extends GetxController {
   static EmployeeRepository get instance => Get.find();

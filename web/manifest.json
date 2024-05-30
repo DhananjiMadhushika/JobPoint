@@ -1,6 +1,6 @@
 {
-    "name": "jobapp",
-    "short_name": "jobapp",
+    "name": "jobpoint",
+    "short_name": "jobpoint",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

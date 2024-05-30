@@ -1,10 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jobapp/firebase_options.dart';
-import 'package:jobapp/src/repository/authentication_repository/authentication_repositort.dart';
-
-import 'src/common_widgets/first_screen/first_screen.dart';
+import 'package:jobpoint/firebase_options.dart';
+import 'package:jobpoint/src/common_widgets/first_screen/first_screen.dart';
+import 'package:jobpoint/src/repository/authentication_repository/authentication_repositort.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

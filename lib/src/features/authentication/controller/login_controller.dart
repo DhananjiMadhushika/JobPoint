@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jobapp/src/repository/authentication_repository/authentication_repositort.dart';
+import 'package:jobpoint/src/repository/authentication_repository/authentication_repositort.dart';
 
 class LoginController extends GetxController {
   static LoginController get instance => Get.find();
@@ -8,8 +8,7 @@ class LoginController extends GetxController {
   /// TextField Controllers to get data from TextFields
   final email = TextEditingController();
   final password = TextEditingController();
-
-  //final isGoogleLoading = false.obs;
+  final isGoogleLoading = false.obs;
 
   /// TextField Validation
 
@@ -21,14 +20,14 @@ class LoginController extends GetxController {
 
   // Google sign in authentication
 
-  // Future<void> googleSignIn() async {
-  //   try {
-  //     isGoogleLoading.value = true;
-  //     await AuthenticationRepository.instance.signInWithGoogle();
-  //     isGoogleLoading.value = false;
-  //   } catch (e) {
-  //     isGoogleLoading.value = false;
-  //     print(e);
-  //   }
-  // }
+  Future<void> googleSignIn() async {
+    try {
+      isGoogleLoading.value = true;
+      await AuthenticationRepository.instance.signInWithGoogle();
+      isGoogleLoading.value = false;
+      } catch (e) {
+      isGoogleLoading.value = false;
+        print(e);
+      }
+      }
 }

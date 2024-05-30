@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jobapp/src/features/authentication/screens/employee/employeeProfile.dart';
-import 'package:jobapp/src/features/authentication/screens/login/employee_login.dart';
-import 'package:jobapp/src/repository/authentication_repository/authentication_repositort.dart';
+import 'package:jobpoint/src/features/authentication/screens/employee/userProfile.dart';
+import 'package:jobpoint/src/features/authentication/screens/login/user_login.dart';
+import 'package:jobpoint/src/repository/authentication_repository/authentication_repositort.dart';
 
 class MyAccount extends StatefulWidget {
   const MyAccount({Key? key}) : super(key: key);
@@ -21,7 +21,7 @@ class _MyAccountState extends State<MyAccount> {
       body: Obx(() {
         // Use the value of isLoggedIn to determine which screen to show
         return Get.find<AuthenticationRepository>().isLoggedIn.value
-            ? EmployeeProfile()
+            ? UserProfile()
             : UserLogin();
       }),
     );

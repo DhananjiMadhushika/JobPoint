@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jobapp/src/features/authentication/controller/signup_controller.dart';
+import 'package:jobpoint/src/features/authentication/controller/signup_controller.dart';
 
 class CreatProfile extends StatefulWidget {
   CreatProfile({super.key});

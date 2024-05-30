@@ -1,4 +1,4 @@
-# jobapp
+# jobpoint
 
 A new Flutter project.
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jobapp/src/common_widgets/welcom_screen/welcom_screen.dart';
+import 'package:jobpoint/src/features/authentication/screens/signup/user_register.dart';
 
 class Nevg3 extends StatelessWidget {
   const Nevg3({super.key});
@@ -105,7 +105,7 @@ class Nevg3 extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => WelcomeWindow()));
+                                builder: (context) => UserRegister()));
                       },
                       child: Container(
                         height: 40,
